@@ -1,5 +1,6 @@
 package com.thervieu.swingy;
 
+import com.thervieu.swingy.controllers.console.ConsoleController;
 
 public class App 
 {
@@ -7,19 +8,20 @@ public class App
     {
         // usage
         if (args.length != 1) {
-            System.out.println( "usage: [console/gui]" );
+            System.out.println( "usage1: [console/gui]" );
             return ;
         }
-        if (args[0] != "console" && args[0] == "gui") {
-            System.out.println( "usage: [console/gui]" );
+        if (args[0].equals("console") == false && args[0].equals("gui") == false) {
+            System.out.println( "usage2: [console/gui]" );
             return ;
         }
 
         // launch game
-        if (args[0] == "console") {
-            // do console
-        } else if (args[0] == "gui") {
-            // do gui
+        if (args[0].equals("console") == true) {
+            ConsoleController c = new ConsoleController();
+            c.Game();
+        } else if (args[0].equals("gui") == true ) {
+            System.out.println( "gui" );
         }
         return ;
     }
