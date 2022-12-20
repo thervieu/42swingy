@@ -14,6 +14,8 @@ public class Player {
     private int defense;
     private int hitPoints;
     private String artifact;
+    private int x;
+    private int y;
 
     public Player(String name, String class1, int attack, int defense, int hitPoints) {
         this.name = name;
@@ -24,6 +26,8 @@ public class Player {
         this.defense = defense;
         this.hitPoints = hitPoints;
         this.artifact = "";
+        this.x = 0;
+        this.y = 0;
     }
 
     public void setName(String name) {
@@ -47,6 +51,12 @@ public class Player {
     public void setArtifact(String artifact) {
         this.artifact = artifact;
     }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public String getName() {
         return this.artifact;
@@ -68,5 +78,11 @@ public class Player {
     }
     public String getArtifact() {
         return this.artifact;
+    }
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
     }
 }
