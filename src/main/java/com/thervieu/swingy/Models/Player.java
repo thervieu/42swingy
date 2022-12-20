@@ -2,9 +2,7 @@ package com.thervieu.swingy.models;
 
 public class Player {
 
-    public Player() {
-
-    }
+    public Player() {}
 
     private String name;
     private String class1;
@@ -28,6 +26,19 @@ public class Player {
         this.artifact = "";
         this.x = 0;
         this.y = 0;
+    }
+
+    public void Print() {
+        System.out.printf("name: %s\n", this.name);
+        System.out.printf("class: %s\n", this.class1);
+        System.out.printf("level: %d\n", this.level);
+        System.out.printf("exp: %d\n", this.exp);
+        System.out.printf("attack: %d\n", this.attack);
+        System.out.printf("defense: %d\n", this.defense);
+        System.out.printf("hitPoints: %d\n", this.hitPoints);
+        System.out.printf("artifact: %s\n", this.artifact);
+        System.out.printf("x: %d\n", this.x);
+        System.out.printf("y: %d\n", this.y);
     }
 
     public void setName(String name) {

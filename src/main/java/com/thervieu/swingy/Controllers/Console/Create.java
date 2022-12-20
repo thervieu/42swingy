@@ -62,10 +62,10 @@ public class Create {
     
     public static Player CreatePlayer(String name, String name2) {
         if (name2.equals("warrior")) {
-            System.out.println("Creating warrior");
+            System.out.println("[Character] Creating warrior");
             return new Player(name, name2, 10, 5, 30);
         } else if (name2.equals("paladin")) {
-            System.out.println("Creating paladin");
+            System.out.println("[Character] Creating paladin");
             return new Player(name, name2, 7, 8, 40);
         }
         return null;

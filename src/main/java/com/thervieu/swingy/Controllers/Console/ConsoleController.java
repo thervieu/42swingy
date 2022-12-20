@@ -3,22 +3,21 @@ package com.thervieu.swingy.controllers.console;
 import com.thervieu.swingy.models.Player;
 
 public class ConsoleController {
-    public static String playerCreation() {
-        Player player;
+    public static Player playerCreation() {
 
         String choice = Create.CreateOrDB();
         if (choice.equals("create")) {
             String name = Create.Name();
-            player = Create.CreatePlayer(name, Create.Class());
-        } else if (choice.equals("choose")) {
-            // load db and choose character
+            return Create.CreatePlayer(name, Create.Class());
+        } else {
+            String name = Create.Name();
+            return Create.CreatePlayer(name, Create.Class());
         }
-        return "player";
     }
 
     public static void Game() {
-        String player = playerCreation();
-        // player.Print();
+        Player player = playerCreation();
+        player.Print();
         return ;
     }
 }
