@@ -1,6 +1,7 @@
 package com.thervieu.swingy.controllers.console;
 
 import java.util.Scanner;
+import com.thervieu.swingy.models.Player;
 
 public class Create {
     public static String CreateOrDB() {
@@ -10,11 +11,11 @@ public class Create {
         String choice = "";
         Scanner sc=new Scanner(System.in);
         while (sc.hasNextLine()) {
-            System.out.println("[Start] Either input create or choose.");
             choice = sc.nextLine();
             if (choice.equals("create") || choice.equals("choose")) {
                 break;
             }
+            System.out.println("[Start] Either input create or choose.");
         }
         return choice;
     }
@@ -41,31 +42,33 @@ public class Create {
         }
         return name;
     }
-    // public static String ClassChoice() {
-    //     System.out.println("[Character] Your class will determine the base stats");
 
-    //     String class = "";
-        // Scanner sc=new Scanner(System.in);
-        // while (sc.hasNextLine()) {
-        //     System.out.println("[Character] You can choose a class between warrior and paladin.");
-        //     class = sc.NextLine();
-        //     if (choice.equals("warrior") || choice.equals("paladin")) {
-        //         break;
-        //     }
-        // }
-    //     return class;
-    // }
     
-    // public Player CreatePlayer(String name, String class) {
-    //     if (class.equals("warrior")) {
-    //         System.out.println("Creating warrior");
-    //         return new Player(name, class, 1, 0, 10, 30, 6, 0, 0, 0);
-    //     }
-    //     if (class.equals("paladin")) {
-    //         System.out.println("Creating paladin");
-    //         return new Player(name, class, 1, 0, 6, 50, 7, 0, 0, 0);
-    //     }
-    //     return null;
-    // }
+    public static String Class() {
+        System.out.println("[Character] Your class will determine the base stats");
+        
+        String choice = "";
+        Scanner sc=new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            choice = sc.nextLine();
+            if (choice.equals("warrior") || choice.equals("paladin")) {
+                break;
+            }
+            System.out.println("[Character] Either input warrior or paladin.");
+        }
+        return choice;
+    }
+
+    
+    public static Player CreatePlayer(String name, String name2) {
+        if (name2.equals("warrior")) {
+            System.out.println("Creating warrior");
+            return new Player(name);
+        } else if (name2.equals("paladin")) {
+            System.out.println("Creating paladin");
+            return new Player(name);
+        }
+        return null;
+    }
 
 }

@@ -8,11 +8,11 @@ public class App
     {
         // usage
         if (args.length != 1) {
-            System.out.println( "usage1: [console/gui]" );
+            System.out.println( "usage: [console/gui]" );
             return ;
         }
         if (args[0].equals("console") == false && args[0].equals("gui") == false) {
-            System.out.println( "usage2: [console/gui]" );
+            System.out.println( "usage: [console/gui]" );
             return ;
         }
 
