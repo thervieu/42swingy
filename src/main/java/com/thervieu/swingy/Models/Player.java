@@ -25,7 +25,7 @@ public class Player {
         this.defense = defense;
         this.hitPoints = hitPoints;
         this.artifact = "";
-        this.mapSize = 1;
+        this.mapSize = (this.level - 1) * 5 + 9;
         this.x = 0;
         this.y = 0;
     }
@@ -42,6 +42,21 @@ public class Player {
         System.out.printf("mapSize: %d\n", this.mapSize);
         System.out.printf("x: %d\n", this.x);
         System.out.printf("y: %d\n", this.y);
+    }
+
+    public void Move(String direction) {
+        if (direction.equals("north")) {
+            this.setY(this.getY() + 1);
+        }
+        if (direction.equals("south")) {
+            this.setY(this.getY() - 1);
+        }
+        if (direction.equals("west")) {
+            this.setX(this.getX() - 1);
+        }
+        if (direction.equals("east")) {
+            this.setX(this.getX() + 1);
+        }
     }
 
     public void setName(String name) {

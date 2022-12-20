@@ -59,6 +59,24 @@ public class Create {
         return choice;
     }
 
+
+    public static String ChooseDirection() {
+        System.out.println("[Direction] Choose you next destination");
+        
+        String choice = "";
+        Scanner sc=new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            choice = sc.nextLine();
+            if (choice.equals("north") || choice.equals("west") || choice.equals("east")
+                || choice.equals("south") || choice.equals("save")) {
+                break;
+            }
+            System.out.println("[Direction] Either input north, west, east or south.");
+            System.out.println("[Direction] You can also save and quit by inputing save.");
+        }
+        return choice;
+    }
+
     
     public static Player CreatePlayer(String name, String name2) {
         if (name2.equals("warrior")) {
