@@ -68,6 +68,9 @@ public class Player {
     public void setLevel(int level) {
         this.level = level;
     }
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
     public void setAttack(int attack) {
         this.attack = attack;
     }
@@ -80,8 +83,8 @@ public class Player {
     public void setArtifact(String artifact) {
         this.artifact = artifact;
     }
-    public void setMapSize(int x) {
-        this.x = x;
+    public void setMapSize(int mapSize) {
+        this.mapSize = mapSize;
     }
     public void setX(int x) {
         this.x = x;
@@ -99,13 +102,16 @@ public class Player {
     public int getLevel() {
         return this.level;
     }
+    public int getExp() {
+        return this.exp;
+    }
     public int getAttack() {
         return this.attack;
     }
     public int getDefense() {
         return this.defense;
     }
-    public int getHitPOints() {
+    public int getHitPoints() {
         return this.hitPoints;
     }
     public String getArtifact() {
