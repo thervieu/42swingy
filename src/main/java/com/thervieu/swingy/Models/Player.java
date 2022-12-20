@@ -12,18 +12,20 @@ public class Player {
     private int defense;
     private int hitPoints;
     private String artifact;
+    private int mapSize;
     private int x;
     private int y;
 
     public Player(String name, String class1, int attack, int defense, int hitPoints) {
         this.name = name;
         this.class1 = class1;
-        this.level = 0;
+        this.level = 1;
         this.exp = 0;
         this.attack = attack;
         this.defense = defense;
         this.hitPoints = hitPoints;
         this.artifact = "";
+        this.mapSize = 1;
         this.x = 0;
         this.y = 0;
     }
@@ -37,6 +39,7 @@ public class Player {
         System.out.printf("defense: %d\n", this.defense);
         System.out.printf("hitPoints: %d\n", this.hitPoints);
         System.out.printf("artifact: %s\n", this.artifact);
+        System.out.printf("mapSize: %d\n", this.mapSize);
         System.out.printf("x: %d\n", this.x);
         System.out.printf("y: %d\n", this.y);
     }
@@ -61,6 +64,9 @@ public class Player {
     }
     public void setArtifact(String artifact) {
         this.artifact = artifact;
+    }
+    public void setMapSize(int x) {
+        this.x = x;
     }
     public void setX(int x) {
         this.x = x;
@@ -89,6 +95,9 @@ public class Player {
     }
     public String getArtifact() {
         return this.artifact;
+    }
+    public int getMapSize() {
+        return this.mapSize;
     }
     public int getX() {
         return this.x;

@@ -18,6 +18,7 @@ public class ConsoleController {
     public static void Game() {
         Player player = playerCreation();
         player.Print();
+        
         return ;
     }
 }
