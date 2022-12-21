@@ -1,7 +1,9 @@
 package com.thervieu.swingy;
 
+import com.thervieu.swingy.Models.Player;
 import com.thervieu.swingy.Controllers.Console.ConsoleController;
 import com.thervieu.swingy.Controllers.GUI.GUIController;
+import com.thervieu.swingy.Views.GUI.GUIView;
 
 public class App 
 {
@@ -22,8 +24,10 @@ public class App
             ConsoleController c = new ConsoleController();
             c.Game();
         } else if (args[0].equals("gui") == true ) {
-            GUIController c = new GUIController();
-            c.Game();
+            Player player = new Player();
+            GUIView v = new GUIView();
+            GUIController c = new GUIController(player, v);
+            c.Init();
         }
         return ;
     }

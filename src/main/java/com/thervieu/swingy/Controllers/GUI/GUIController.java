@@ -1,10 +1,21 @@
 package com.thervieu.swingy.Controllers.GUI;
 
 import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.thervieu.swingy.Models.Player;
 import com.thervieu.swingy.Views.GUI.GUIView;
+import javax.swing.JOptionPane;
 
 public class GUIController {
+    private GUIView guiView;
+    private Player player;
+
+    public GUIController(Player player, GUIView guiView) {
+        this.player = player;
+        this.guiView = guiView;
+    }
 
     public static Boolean winMap(Player player) {
         int x = player.getX();
@@ -66,6 +77,15 @@ public class GUIController {
         return 0;
     }
 
+    public static Player CreatePlayer(String name, String name2) {
+        if (name2.equals("warrior")) {
+            return new Player(name, name2, 10, 5, 30);
+        } else if (name2.equals("paladin")) {
+            return new Player(name, name2, 7, 8, 40);
+        }
+        return null;
+    }
+
     public static Boolean fight(Player player, int enemylvl) {
         int power = (player.getAttack() + player.getDefense()) / 2;
 
@@ -103,10 +123,64 @@ public class GUIController {
         }
     }
     
-    public static void Game() {
-        GUIView gui = new GUIView();
+    public void Init() {
 
-        gui.startGUI();
+        this.guiView.getCreatePlayerButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                guiView.getCreatePlayerButton().setVisible(false);
+                guiView.getSelectPlayerButton().setVisible(false);
+
+                guiView.getCreatePlayerLabel().setVisible(true);
+                guiView.getEnterNameLabel().setVisible(true);
+                guiView.getNameField().setVisible(true);
+                guiView.getClassLabel().setVisible(true);
+                guiView.getWarriorButton().setVisible(true);
+                guiView.getPaladinButton().setVisible(true);
+                guiView.getValidateCreateButton().setVisible(true);
+                // 
+                // createHeroGUI();
+                // frame.dispose();
+            }
+        });
+
+        this.guiView.getSelectPlayerButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // 
+                guiView.getCreatePlayerButton().setVisible(false);
+                guiView.getSelectPlayerButton().setVisible(false);
+                // selectHeroGUI();
+                // frame.dispose();
+            }
+        });
+
+
+        guiView.getValidateCreateButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = "";
+                String playerClass = "";
+                if (guiView.getWarriorButton().isSelected()) {
+                    playerClass = "warrior";
+                } else if (guiView.getPaladinButton().isSelected()) {
+                    playerClass = "paladin";
+                }
+
+                name = guiView.getNameField().getText();
+                name = name.trim();
+
+                if (name.length() ==  0) {
+                    JOptionPane.showMessageDialog(null, "Blanks are not allowed.");
+                    return ;
+                }
+                String[] strList = name.split("\\s");
+
+                if (strList != null) {
+                    name = String.join("_", strList);
+                }
+                System.out.println("creating " + name + " " + playerClass);
+                player = GUIController.CreatePlayer(name, playerClass);
+            }
+        });
+
         // Player player = playerCreation();
         // player.Print();
         

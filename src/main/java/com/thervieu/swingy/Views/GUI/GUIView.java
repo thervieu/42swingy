@@ -1,6 +1,7 @@
 package com.thervieu.swingy.Views.GUI;
 
 import com.thervieu.swingy.Models.Player;
+import com.thervieu.swingy.Controllers.GUI.GUIController;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -15,82 +16,124 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
 
 import com.thervieu.swingy.Utils.Reader;
 
 public class GUIView {
     private String[] playersStrings = Reader.getLines();
-    private final JList listOfPlayers = new JList<>(playersStrings);
+    private JList listOfPlayers = new JList<>(playersStrings);
 
-    private final JFrame swingyFrame = new JFrame("Swingy");
-    private final JFrame createPlayerFrame = new JFrame("Create player");
-    private final JFrame selectPlayerFrame = new JFrame("Select player");
-    private final JFrame playerStatsFrame = new JFrame("Stats player");
-    private final JFrame playerCreationFrame = new JFrame("Player creation");
-    private final JFrame gameFrame = new JFrame("Game");
-    private final JFrame gameOverFrame = new JFrame("Game Over");
-
-    private JLabel createPlayerLabel = new JLabel("Create player");
-    private JLabel enterNameLabel = new JLabel("Name your player");
-    private JTextField playerNameField = new JTextField();
-    private JTextArea playerNameArea = new JTextArea();
-
-    private JLabel selectPlayerLabel = new JLabel("Select player");
-    private final JRadioButton warriorButton = new JRadioButton("Warrior");
-    private final JRadioButton paladinButton = new JRadioButton("Paladin");
+    private JFrame frame = new JFrame("Swingy");
+    private JFrame createPlayerFrame = new JFrame("Create player");
 
     private JButton createPlayerButton = new JButton("Create player");
     private JButton selectPlayerButton = new JButton("Select player");
-    private JButton validatePlayerButton = new JButton("Validate");
 
-    private String playerClass;
-    private String hero;
-    private Player player;
+    private JLabel createPlayerLabel = new JLabel("Create player");
+    private JLabel enterNameLabel = new JLabel("Name your player");
+    private JTextField nameField = new JTextField();
+    private JLabel classLabel = new JLabel("Choose your class");
+    private JRadioButton warriorButton = new JRadioButton("Warrior");
+    private JRadioButton paladinButton = new JRadioButton("Paladin");
+    private JButton validateCreateButton = new JButton("Validate");
 
-    public void startGUI() {
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
+    public void setCreatePlayerButton(JButton createPlayerButton) {
+        this.createPlayerButton = createPlayerButton;
+    }
+    public JButton getCreatePlayerButton() {
+        return this.createPlayerButton;
+    }
+    public void setSelectPlayerButton(JButton selectPlayerButton) {
+        this.selectPlayerButton = selectPlayerButton;
+    }
+    public JButton getSelectPlayerButton() {
+        return this.selectPlayerButton;
+    }
+
+    public void setCreatePlayerLabel(JLabel createPlayerLabel) {
+        this.createPlayerLabel = createPlayerLabel;
+    }
+    public JLabel getCreatePlayerLabel() {
+        return this.createPlayerLabel;
+    }
+    public void setEnterNameLabel(JLabel enterNameLabel) {
+        this.enterNameLabel = enterNameLabel;
+    }
+    public JLabel getEnterNameLabel() {
+        return this.enterNameLabel;
+    }
+
+    public void setNameField(JTextField nameField) {
+        this.nameField = nameField;
+    }
+    public JTextField getNameField() {
+        return this.nameField;
+    }
+
+
+    public void setClassLabel(JLabel classLabel) {
+        this.classLabel = classLabel;
+    }
+    public JLabel getClassLabel() {
+        return this.classLabel;
+    }
+
+    public void setWarriorButton(JRadioButton warriorButton) {
+        this.warriorButton = warriorButton;
+    }
+    public JRadioButton getWarriorButton() {
+        return this.warriorButton;
+    }
+    public void setPaladinButton(JRadioButton paladinButton) {
+        this.paladinButton = paladinButton;
+    }
+    public JRadioButton getPaladinButton() {
+        return this.paladinButton;
+    }
+
+    public void setValidateCreateButton(JButton validateCreateButton) {
+        this.validateCreateButton = validateCreateButton;
+    }
+    public JButton getValidateCreateButton() {
+        return this.validateCreateButton;
+    }
+
+    private JLabel selectPlayerLabel = new JLabel("Select player");
+    private JButton validateSelectButton = new JButton("Validate");
+
+
+    public GUIView() {
         createPlayerButton.setBounds(225, 100, 150, 25);
         createPlayerButton.setOpaque(true);
 
         selectPlayerButton.setBounds(225, 200, 150, 25);
         selectPlayerButton.setOpaque(true);
 
-        swingyFrame.add(createPlayerButton);
-        swingyFrame.add(selectPlayerButton);
-        swingyFrame.setSize(600, 600);
-        swingyFrame.setLayout(null);
-        swingyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        swingyFrame.setVisible(true);
-        swingyFrame.setResizable(false);
+        frame.add(createPlayerButton);
+        frame.add(selectPlayerButton);
 
 
-        createPlayerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                createHeroGUI();
-                swingyFrame.dispose();
-            }
-        });
-
-        selectPlayerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // selectHeroGUI();
-                swingyFrame.dispose();
-            }
-        });
-    }
-
-    public void createHeroGUI() {
         createPlayerLabel.setBounds(250, 50, 100, 25);
         createPlayerLabel.setOpaque(true);
 
         enterNameLabel.setBounds(100, 150, 150, 25);
         enterNameLabel.setOpaque(true);
 
-        playerNameField.setBounds(300, 150, 150, 25);
-        playerNameField.setOpaque(true);
-        playerNameField.setText("Enter name here");
+        nameField.setBounds(300, 150, 150, 25);
+        nameField.setOpaque(true);
+        nameField.setText("Enter name here");
 
 
-        JLabel classLabel = new JLabel("Choose your class");
+        
         classLabel.setBounds(230, 240, 300, 25);
         classLabel.setOpaque(true);
 
@@ -108,33 +151,47 @@ public class GUIView {
         buttonGroup.add(paladinButton);
 
 
-        validatePlayerButton.setBounds(200, 400, 130, 25);
-        validatePlayerButton.setOpaque(true);
+        validateCreateButton.setBounds(200, 400, 130, 25);
+        validateCreateButton.setOpaque(true);
 
-        createPlayerFrame.add(createPlayerLabel);
-        createPlayerFrame.add(enterNameLabel);
-        createPlayerFrame.add(playerNameField);
-        createPlayerFrame.add(classLabel);
-        createPlayerFrame.add(warriorButton);
-        createPlayerFrame.add(paladinButton);
-        createPlayerFrame.add(validatePlayerButton);
+        createPlayerLabel.setVisible(false);
+        enterNameLabel.setVisible(false);
+        nameField.setVisible(false);
+        classLabel.setVisible(false);
+        warriorButton.setVisible(false);
+        paladinButton.setVisible(false);
+        validateCreateButton.setVisible(false);
+        frame.add(createPlayerLabel);
+        frame.add(enterNameLabel);
+        frame.add(nameField);
+        frame.add(classLabel);
+        frame.add(warriorButton);
+        frame.add(paladinButton);
+        frame.add(validateCreateButton);
         
-        createPlayerFrame.setSize(600, 600);
-        createPlayerFrame.setLayout(null);
-        createPlayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        createPlayerFrame.setVisible(true);
-        createPlayerFrame.setResizable(false);
+        frame.setSize(600, 600);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setResizable(false);
 
+        frame.setSize(600, 600);
+        frame.setLayout(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setResizable(false);
 
-        validatePlayerButton.addActionListener(new ActionListener() {
+        validateCreateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String hero = "";
+                String playerClass = "";
                 if (warriorButton.isSelected()) {
                     playerClass = "warrior";
                 } else if (paladinButton.isSelected()) {
                     playerClass = "paladin";
                 }
 
-                hero = playerNameField.getText();
+                hero = nameField.getText();
                 hero = hero.trim();
 
                 if (hero.length() ==  0) {
@@ -146,17 +203,12 @@ public class GUIView {
                 if (strList != null) {
                     hero = String.join("_", strList);
                 }
-
-                System.out.printf("Create %s %s\n", hero, playerClass);
-                createPlayerFrame.setVisible(false);
-                createPlayerFrame.dispose();
+                // player = GUIController.CreatePlayer(hero, playerClass);
             }
         });
 
         selectPlayerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // selectHeroGUI();
-                createPlayerFrame.dispose();
             }
         });
     }
