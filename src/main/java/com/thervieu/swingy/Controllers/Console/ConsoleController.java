@@ -49,7 +49,6 @@ public class ConsoleController {
             System.out.println("[Action] You can print your player' stats by inputing stats.");
             System.out.println("[Action] You can also save and quit by inputing save.");
         }
-        sc.close();
         return choice;
     }
     
@@ -82,7 +81,6 @@ public class ConsoleController {
                 }
                 System.out.println("[Direction] Either input fight or flight.");
             }
-            sc.close();
             if (choice.equals("flight") && Math.random() < 0.5) {
                 return 0;
             }
@@ -127,7 +125,7 @@ public class ConsoleController {
         }
     }
     
-    public static void Game() {
+    public void Game() {
         Player player = playerCreation();
         player.Print();
         

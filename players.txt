@@ -1,1 +1,0 @@
-prout warrior 2 2300 13 7 35 ARMOR 9 0 -2

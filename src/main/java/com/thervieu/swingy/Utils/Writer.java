@@ -10,11 +10,11 @@ public class Writer {
 
     public static void write(String playerLine) {
         try {
-            File f = new File("players.txt");
+            File f = new File("player.txt");
             FileWriter fileWriter = new FileWriter(f, false);
             fileWriter.write(playerLine);
             fileWriter.close();
-            System.out.printf("Wrote \"%s\" to players.txt\n", playerLine);
+            System.out.printf("Save player to player.txt\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,1 @@
+test paladin 1 0 7 8 40 none 9 0 0

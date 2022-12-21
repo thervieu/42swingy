@@ -10,7 +10,7 @@ public class Reader {
         try {
             String player = null;
 
-            File f = new File("players.txt");
+            File f = new File("player.txt");
             FileReader fileReader = new FileReader(f);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
