@@ -1,7 +1,7 @@
-package com.thervieu.swingy.controllers.console;
+package com.thervieu.swingy.Controllers.Console;
 
 import java.util.Scanner;
-import com.thervieu.swingy.models.Player;
+import com.thervieu.swingy.Models.Player;
 
 public class ConsoleController {
     public static Player playerCreation() {

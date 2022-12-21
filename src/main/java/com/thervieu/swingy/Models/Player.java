@@ -1,4 +1,4 @@
-package com.thervieu.swingy.models;
+package com.thervieu.swingy.Models;
 
 public class Player {
 

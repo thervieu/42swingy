@@ -1,6 +1,7 @@
 package com.thervieu.swingy;
 
-import com.thervieu.swingy.controllers.console.ConsoleController;
+import com.thervieu.swingy.Controllers.Console.ConsoleController;
+import com.thervieu.swingy.Controllers.GUI.GUIController;
 
 public class App 
 {
@@ -21,7 +22,8 @@ public class App
             ConsoleController c = new ConsoleController();
             c.Game();
         } else if (args[0].equals("gui") == true ) {
-            System.out.println( "gui" );
+            GUIController c = new GUIController();
+            c.Game();
         }
         return ;
     }

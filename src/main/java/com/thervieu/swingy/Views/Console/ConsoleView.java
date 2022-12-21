@@ -1,4 +1,4 @@
-package com.thervieu.swingy.views.console;
+package com.thervieu.swingy.Views.Console;
 
 public class ConsoleView {
 }
