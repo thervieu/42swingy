@@ -24,7 +24,7 @@ public class Player {
         this.attack = attack;
         this.defense = defense;
         this.hitPoints = hitPoints;
-        this.artifact = "";
+        this.artifact = "none";
         this.mapSize = (this.level - 1) * 5 + 9;
         this.x = 0;
         this.y = 0;
@@ -94,7 +94,7 @@ public class Player {
     }
 
     public String getName() {
-        return this.artifact;
+        return this.name;
     }
     public String getClass1() {
         return this.class1;

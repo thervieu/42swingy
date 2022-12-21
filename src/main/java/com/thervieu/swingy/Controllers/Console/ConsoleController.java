@@ -96,7 +96,7 @@ public class ConsoleController {
             playerDefense += 8;
         }
         if (player.getArtifact().equals("WEAPON")) {
-            playerHitPoints += 15;
+            playerHitPoints += 20;
         }
 
         int damagePlayer = 0;

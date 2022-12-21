@@ -12,6 +12,8 @@ public class GUIController {
     private GUIView guiView;
     private Player player;
 
+    public int levelEnemy = 0;
+
     public GUIController(Player player, GUIView guiView) {
         this.player = player;
         this.guiView = guiView;
@@ -54,10 +56,9 @@ public class GUIController {
         double rand = Math.random();
         
         if (rand < 0.6) {
-        
-            int levelEnemy = level + (int)Math.floor(Math.random() * 3) + 1;
+            int lvlEnemy = level + (int)Math.floor(Math.random() * 3) + 1;
 
-            System.out.printf("[Encounter] In front of you there is a zombie level %d\n", levelEnemy);
+            System.out.printf("[Encounter] In front of you there is a zombie level %d\n", lvlEnemy);
             System.out.println("[Encounter] Do you wish to fight it ?");
 
             String choice = "";
@@ -72,14 +73,14 @@ public class GUIController {
             if (choice.equals("flight") && Math.random() < 0.5) {
                 return 0;
             }
-            return levelEnemy;
+            return lvlEnemy;
         }
         return 0;
     }
 
     public static Player CreatePlayer(String name, String name2) {
         if (name2.equals("warrior")) {
-            return new Player(name, name2, 10, 5, 30);
+            return new Player(name, name2, 10, 5, 40);
         } else if (name2.equals("paladin")) {
             return new Player(name, name2, 7, 8, 40);
         }
@@ -106,7 +107,7 @@ public class GUIController {
             playerDefense += 8;
         }
         if (player.getArtifact().equals("WEAPON")) {
-            playerHitPoints += 15;
+            playerHitPoints += 20;
         }
 
         int damagePlayer = 0;
@@ -123,8 +124,78 @@ public class GUIController {
         }
     }
 
+    public void fight() {
+        int power = (player.getAttack() + player.getDefense()) / 2;
+
+        double randPower = Math.random();
+        double randPlus = Math.random();
+
+        int enemyAttack = (int)(randPower * power) + (int)(randPlus * (levelEnemy - player.getLevel()));
+        int enemyDefense = (int)((1 - randPower) * power) + (int)((1 - randPlus) * (levelEnemy - player.getLevel()));
+        int enemyHitPoints = player.getHitPoints() * 3 / 4;
+
+        int playerAttack = player.getAttack();
+        int playerDefense = player.getDefense();
+        int playerHitPoints = player.getHitPoints();
+        if (player.getArtifact().equals("WEAPON")) {
+            playerAttack += 5;
+        }
+        if (player.getArtifact().equals("ARMOR")) {
+            playerDefense += 8;
+        }
+        if (player.getArtifact().equals("WEAPON")) {
+            playerHitPoints += 20;
+        }
+
+        int damagePlayer = 0;
+        int damageEnemy = 0;
+        while (true) {
+            damageEnemy += playerAttack- enemyDefense;
+            damagePlayer +=  enemyAttack - playerDefense;
+            if (damagePlayer > playerHitPoints) {
+                guiView.getGameOverLabel().setVisible(true);
+            }
+            if (damageEnemy > enemyHitPoints) {
+                break ;
+            }
+        }
+
+        player.setExp(player.getExp() + (player.getLevel() * (levelEnemy - player.getLevel()) * 300));
+
+        double drop = Math.random();
+        if (drop < 0.45 && player.getArtifact().equals("none")) {
+            player.setArtifact("WEAPON");
+        }
+        if (drop < 0.25 && player.getArtifact().equals("WEAPON")) {
+            player.setArtifact("ARMOR");
+        }
+        if (drop < 0.1 && player.getArtifact().equals("ARMOR")) {
+            player.setArtifact("HELM");
+        }
+        if (player.getExp() > (player.getLevel() * 1450) - 450) {
+            player.setLevel(player.getLevel() + 1);
+            player.setExp(0);
+            player.setHitPoints(player.getHitPoints() + 5);
+            if (player.getClass1().equals("warrior")) {
+                player.setAttack(player.getAttack() + 3);
+                player.setDefense(player.getDefense() + 2);
+            } else if (player.getClass1().equals("paladin")) {
+                player.setAttack(player.getAttack() + 2);
+                player.setDefense(player.getDefense() + 3);
+            }
+        }
+
+        guiView.getPositionLabel().setVisible(true);
+        guiView.getMoveorSaveLabel().setVisible(true);
+        guiView.getNorthButton().setVisible(true);
+        guiView.getWestButton().setVisible(true);
+        guiView.getEastButton().setVisible(true);
+        guiView.getSouthButton().setVisible(true);
+        guiView.getStatsButton().setVisible(true);
+    }
+
     public void fightOrFlight() {
-        int levelEnemy = player.getLevel() + (int)Math.floor(Math.random() * 3) + 1;
+        levelEnemy = player.getLevel() + (int)Math.floor(Math.random() * 3) + 1;
 
         guiView.getPositionLabel().setText("(" + Integer.toString(player.getX()) + "," + Integer.toString(player.getY()) + ")");
         if (Math.random() < 0.6) {
@@ -134,6 +205,7 @@ public class GUIController {
             guiView.getWestButton().setVisible(false);
             guiView.getEastButton().setVisible(false);
             guiView.getSouthButton().setVisible(false);
+            guiView.getStatsButton().setVisible(false);
             guiView.getSaveButton().setVisible(false);
 
             guiView.getEncounterLabel().setText("You encounter a zombie of level " + Integer.toString(levelEnemy));
@@ -146,7 +218,6 @@ public class GUIController {
         return ;
     }
     
-    public int levelEnemy = 0;
     public void Init() {
 
         this.guiView.getCreatePlayerButton().addActionListener(new ActionListener() {
@@ -218,6 +289,7 @@ public class GUIController {
                 guiView.getWestButton().setVisible(true);
                 guiView.getEastButton().setVisible(true);
                 guiView.getSouthButton().setVisible(true);
+                guiView.getStatsButton().setVisible(true);
                 guiView.getSaveButton().setVisible(true);
             }
         });
@@ -248,21 +320,35 @@ public class GUIController {
         });
 
 
-        guiView.getFightButton().addActionListener(new ActionListener() {
+        guiView.getStatsButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // fight();
+                guiView.getPositionLabel().setVisible(false);
+                guiView.getMoveorSaveLabel().setVisible(false);
+                guiView.getNorthButton().setVisible(false);
+                guiView.getWestButton().setVisible(false);
+                guiView.getEastButton().setVisible(false);
+                guiView.getSouthButton().setVisible(false);
+                guiView.getStatsButton().setVisible(false);
+                guiView.getSaveButton().setVisible(false);
+
+                guiView.getStatsLabel().setText("<html>name: " + player.getName()
+                    + "<br>class: " + player.getClass1()
+                    + "<br>level: " + player.getLevel()
+                    + "<br>exp: " + player.getExp()
+                    + "<br>attack: " + player.getAttack()
+                    + "<br>defense: " + player.getDefense()
+                    + "<br>hit points: " + player.getHitPoints()
+                    + "<br>artifact: " + player.getArtifact()
+                    + "<br>coords: (" + player.getX() + "," + player.getY() + ")"
+                    + "</html>");
+                guiView.getStatsLabel().setVisible(true);
+                guiView.getBackToMapButton().setVisible(true);
             }
         });
-
-        guiView.getFlightButton().addActionListener(new ActionListener() {
+        guiView.getBackToMapButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (Math.random() < 0.5) {
-                    // fight();
-                    return;
-                }
-                guiView.getEncounterLabel().setVisible(false);
-                guiView.getFightButton().setVisible(false);
-                guiView.getFlightButton().setVisible(false);
+                guiView.getStatsLabel().setVisible(false);
+                guiView.getBackToMapButton().setVisible(false);
 
                 guiView.getPositionLabel().setVisible(true);
                 guiView.getMoveorSaveLabel().setVisible(true);
@@ -270,6 +356,39 @@ public class GUIController {
                 guiView.getWestButton().setVisible(true);
                 guiView.getEastButton().setVisible(true);
                 guiView.getSouthButton().setVisible(true);
+                guiView.getStatsButton().setVisible(true);
+                guiView.getSaveButton().setVisible(true);
+
+            }
+        });
+
+
+        guiView.getFightButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                guiView.getEncounterLabel().setVisible(false);
+                guiView.getFightButton().setVisible(false);
+                guiView.getFlightButton().setVisible(false);
+                fight();
+            }
+        });
+
+        guiView.getFlightButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                guiView.getEncounterLabel().setVisible(false);
+                guiView.getFightButton().setVisible(false);
+                guiView.getFlightButton().setVisible(false);
+                if (Math.random() < 0.5) {
+                    fight();
+                    return;
+                }
+
+                guiView.getPositionLabel().setVisible(true);
+                guiView.getMoveorSaveLabel().setVisible(true);
+                guiView.getNorthButton().setVisible(true);
+                guiView.getWestButton().setVisible(true);
+                guiView.getEastButton().setVisible(true);
+                guiView.getSouthButton().setVisible(true);
+                guiView.getStatsButton().setVisible(true);
                 guiView.getSaveButton().setVisible(true);
 
             }

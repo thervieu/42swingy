@@ -39,135 +39,98 @@ public class GUIView {
     private JRadioButton paladinButton = new JRadioButton("Paladin");
     private JButton validateCreateButton = new JButton("Validate");
 
-
     private JLabel moveOrSaveLabel = new JLabel("Move player or save progress");
     private JLabel positionLabel = new JLabel("Position");
     private JButton northButton = new JButton("North");
     private JButton westButton = new JButton("West");
     private JButton eastButton = new JButton("East");
     private JButton southButton = new JButton("South");
+    private JButton statsButton = new JButton("Stats");
     private JButton saveButton = new JButton("Save and quit");
+
+    private JLabel statsLabel = new JLabel("player stats");
+    private JButton backToMapButton = new JButton("Back to map");
 
     private JLabel encounterLabel = new JLabel("Encounter");
     private JButton fightButton = new JButton("Fight");
     private JButton flightButton = new JButton("Flight");
 
+    private JLabel gameOverLabel = new JLabel("gameOver");
 
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
+    
     public JFrame getFrame() {
         return this.frame;
     }
 
 
-    public void setCreatePlayerButton(JButton createPlayerButton) {
-        this.createPlayerButton = createPlayerButton;
-    }
     public JButton getCreatePlayerButton() {
         return this.createPlayerButton;
-    }
-    public void setSelectPlayerButton(JButton selectPlayerButton) {
-        this.selectPlayerButton = selectPlayerButton;
     }
     public JButton getSelectPlayerButton() {
         return this.selectPlayerButton;
     }
 
 
-    public void setCreatePlayerLabel(JLabel createPlayerLabel) {
-        this.createPlayerLabel = createPlayerLabel;
-    }
     public JLabel getCreatePlayerLabel() {
         return this.createPlayerLabel;
-    }
-    public void setEnterNameLabel(JLabel enterNameLabel) {
-        this.enterNameLabel = enterNameLabel;
     }
     public JLabel getEnterNameLabel() {
         return this.enterNameLabel;
     }
 
-    public void setNameField(JTextField nameField) {
-        this.nameField = nameField;
-    }
     public JTextField getNameField() {
         return this.nameField;
     }
 
 
-    public void setClassLabel(JLabel classLabel) {
-        this.classLabel = classLabel;
-    }
     public JLabel getClassLabel() {
         return this.classLabel;
     }
 
-    public void setWarriorButton(JRadioButton warriorButton) {
-        this.warriorButton = warriorButton;
-    }
     public JRadioButton getWarriorButton() {
         return this.warriorButton;
-    }
-    public void setPaladinButton(JRadioButton paladinButton) {
-        this.paladinButton = paladinButton;
     }
     public JRadioButton getPaladinButton() {
         return this.paladinButton;
     }
 
-    public void setValidateCreateButton(JButton validateCreateButton) {
-        this.validateCreateButton = validateCreateButton;
-    }
     public JButton getValidateCreateButton() {
         return this.validateCreateButton;
     }
 
     // map or save methods
-    public void setMoveorSaveLabel(JLabel moveOrSaveLabel) {
-        this.moveOrSaveLabel = moveOrSaveLabel;
-    }
     public JLabel getMoveorSaveLabel() {
         return this.moveOrSaveLabel;
-    }
-    public void setPositionLabel(JLabel positionLabel) {
-        this.positionLabel = positionLabel;
     }
     public JLabel getPositionLabel() {
         return this.positionLabel;
     }
-
-    public void setNorthButton(JButton northButton) {
-        this.northButton = northButton;
-    }
+    
     public JButton getNorthButton() {
         return this.northButton;
-    }
-    public void setWestButton(JButton westButton) {
-        this.westButton = westButton;
     }
     public JButton getWestButton() {
         return this.westButton;
     }
-    public void setEastButton(JButton eastButton) {
-        this.eastButton = eastButton;
-    }
     public JButton getEastButton() {
         return this.eastButton;
-    }
-    public void setSouthButton(JButton southButton) {
-        this.southButton = southButton;
     }
     public JButton getSouthButton() {
         return this.southButton;
     }
-    public void setSaveButton(JButton saveButton) {
-        this.saveButton = saveButton;
-    }
     public JButton getSaveButton() {
         return this.saveButton;
     }
+    public JButton getStatsButton() {
+        return this.statsButton;
+    }
 
+    public JLabel getStatsLabel() {
+        return this.statsLabel;
+    }
+    public JButton getBackToMapButton() {
+        return this.backToMapButton;
+    }
 
     // fight or flight methods
     public JLabel getEncounterLabel() {
@@ -178,6 +141,10 @@ public class GUIView {
     }
     public JButton getFlightButton() {
         return this.flightButton;
+    }
+
+    public JLabel getGameOverLabel() {
+        return this.gameOverLabel;
     }
 
 
@@ -258,6 +225,8 @@ public class GUIView {
         eastButton.setOpaque(true);
         southButton.setBounds(250, 400, 100, 30);
         southButton.setOpaque(true);
+        statsButton.setBounds(30, 500, 100, 30);
+        statsButton.setOpaque(true);
         saveButton.setBounds(420, 500, 140, 30);
         saveButton.setOpaque(true);
 
@@ -267,6 +236,7 @@ public class GUIView {
         westButton.setVisible(false);
         eastButton.setVisible(false);
         southButton.setVisible(false);
+        statsButton.setVisible(false);
         saveButton.setVisible(false);
 
         frame.add(moveOrSaveLabel);
@@ -275,7 +245,20 @@ public class GUIView {
         frame.add(westButton);
         frame.add(eastButton);
         frame.add(southButton);
+        frame.add(statsButton);
         frame.add(saveButton);
+
+        // stats
+        statsLabel.setBounds(250, 100, 200, 350);
+        statsLabel.setOpaque(true);
+        backToMapButton.setBounds(260, 500, 120, 20);
+        backToMapButton.setOpaque(true);
+
+        statsLabel.setVisible(false);
+        backToMapButton.setVisible(false);
+
+        frame.add(statsLabel);
+        frame.add(backToMapButton);
 
         // fight or flight
         encounterLabel.setBounds(180, 150, 250, 30);
@@ -296,6 +279,12 @@ public class GUIView {
         // player stats
 
         // game over
+        gameOverLabel.setBounds(280, 300, 120, 30);
+        gameOverLabel.setOpaque(true);
+
+        gameOverLabel.setVisible(false);
+
+        frame.add(gameOverLabel);
 
         // game won
 
@@ -304,6 +293,5 @@ public class GUIView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setResizable(false);
-
     }
 }
