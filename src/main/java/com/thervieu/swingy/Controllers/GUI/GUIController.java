@@ -178,6 +178,21 @@ public class GUIController {
                 }
                 System.out.println("creating " + name + " " + playerClass);
                 player = GUIController.CreatePlayer(name, playerClass);
+
+                guiView.getCreatePlayerLabel().setVisible(false);
+                guiView.getEnterNameLabel().setVisible(false);
+                guiView.getNameField().setVisible(false);
+                guiView.getClassLabel().setVisible(false);
+                guiView.getWarriorButton().setVisible(false);
+                guiView.getPaladinButton().setVisible(false);
+                guiView.getValidateCreateButton().setVisible(false);
+
+                guiView.getMoveorSaveLabel().setVisible(true);
+                guiView.getNorthButton().setVisible(true);
+                guiView.getWestButton().setVisible(true);
+                guiView.getEastButton().setVisible(true);
+                guiView.getSouthButton().setVisible(true);
+                guiView.getSaveButton().setVisible(true);
             }
         });
 

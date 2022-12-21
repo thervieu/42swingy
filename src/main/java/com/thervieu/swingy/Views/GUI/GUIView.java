@@ -39,12 +39,21 @@ public class GUIView {
     private JButton validateCreateButton = new JButton("Validate");
 
 
+    private JLabel moveOrSaveLabel = new JLabel("Move player or save progress");
+    private JButton northButton = new JButton("North");
+    private JButton westButton = new JButton("West");
+    private JButton eastButton = new JButton("East");
+    private JButton southButton = new JButton("South");
+    private JButton saveButton = new JButton("Save");
+
+
     public void setFrame(JFrame frame) {
         this.frame = frame;
     }
     public JFrame getFrame() {
         return this.frame;
     }
+
 
     public void setCreatePlayerButton(JButton createPlayerButton) {
         this.createPlayerButton = createPlayerButton;
@@ -58,6 +67,7 @@ public class GUIView {
     public JButton getSelectPlayerButton() {
         return this.selectPlayerButton;
     }
+
 
     public void setCreatePlayerLabel(JLabel createPlayerLabel) {
         this.createPlayerLabel = createPlayerLabel;
@@ -107,11 +117,54 @@ public class GUIView {
         return this.validateCreateButton;
     }
 
+    // map or save methods
+    public void setMoveorSaveLabel(JLabel moveOrSaveLabel) {
+        this.moveOrSaveLabel = moveOrSaveLabel;
+    }
+    public JLabel getMoveorSaveLabel() {
+        return this.moveOrSaveLabel;
+    }
+
+    public void setNorthButton(JButton northButton) {
+        this.northButton = northButton;
+    }
+    public JButton getNorthButton() {
+        return this.northButton;
+    }
+    public void setWestButton(JButton westButton) {
+        this.westButton = westButton;
+    }
+    public JButton getWestButton() {
+        return this.westButton;
+    }
+    public void setEastButton(JButton eastButton) {
+        this.eastButton = eastButton;
+    }
+    public JButton getEastButton() {
+        return this.eastButton;
+    }
+    public void setSouthButton(JButton southButton) {
+        this.southButton = southButton;
+    }
+    public JButton getSouthButton() {
+        return this.southButton;
+    }
+    public void setSaveButton(JButton saveButton) {
+        this.saveButton = saveButton;
+    }
+    public JButton getSaveButton() {
+        return this.saveButton;
+    }
+
+
+    // fight or flight methods
+
     private JLabel selectPlayerLabel = new JLabel("Select player");
     private JButton validateSelectButton = new JButton("Validate");
 
 
     public GUIView() {
+        // first fiew
         createPlayerButton.setBounds(225, 100, 150, 25);
         createPlayerButton.setOpaque(true);
 
@@ -121,37 +174,34 @@ public class GUIView {
         frame.add(createPlayerButton);
         frame.add(selectPlayerButton);
 
-
+        // create view
         createPlayerLabel.setBounds(250, 50, 100, 25);
         createPlayerLabel.setOpaque(true);
 
-        enterNameLabel.setBounds(100, 150, 150, 25);
+        enterNameLabel.setBounds(235, 150, 150, 25);
         enterNameLabel.setOpaque(true);
 
-        nameField.setBounds(300, 150, 150, 25);
+        nameField.setBounds(235, 180, 120, 25);
         nameField.setOpaque(true);
-        nameField.setText("Enter name here");
+        nameField.setText("blabla");
 
-
-        
-        classLabel.setBounds(230, 240, 300, 25);
+        classLabel.setBounds(235, 240, 300, 25);
         classLabel.setOpaque(true);
 
         ButtonGroup buttonGroup = new ButtonGroup();
 
-        warriorButton.setBounds(200, 270, 100, 30);
+        warriorButton.setBounds(210, 270, 90, 30);
         warriorButton.setOpaque(true);
         warriorButton.setSelected(true);
 
-        paladinButton.setBounds(300, 270, 100, 30);
+        paladinButton.setBounds(310, 270, 100, 30);
         paladinButton.setOpaque(true);
 
 
         buttonGroup.add(warriorButton);
         buttonGroup.add(paladinButton);
 
-
-        validateCreateButton.setBounds(200, 400, 130, 25);
+        validateCreateButton.setBounds(230, 400, 130, 25);
         validateCreateButton.setOpaque(true);
 
         createPlayerLabel.setVisible(false);
@@ -161,6 +211,7 @@ public class GUIView {
         warriorButton.setVisible(false);
         paladinButton.setVisible(false);
         validateCreateButton.setVisible(false);
+
         frame.add(createPlayerLabel);
         frame.add(enterNameLabel);
         frame.add(nameField);
@@ -169,11 +220,44 @@ public class GUIView {
         frame.add(paladinButton);
         frame.add(validateCreateButton);
         
-        frame.setSize(600, 600);
-        frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setResizable(false);
+        // select player
+    
+        // choose map
+        moveOrSaveLabel.setBounds(190, 100, 240, 30);
+        moveOrSaveLabel.setOpaque(true);
+        northButton.setBounds(250, 200, 100, 30);
+        northButton.setOpaque(true);
+        westButton.setBounds(110, 300, 100, 30);
+        westButton.setOpaque(true);
+        eastButton.setBounds(390, 300, 100, 30);
+        eastButton.setOpaque(true);
+        southButton.setBounds(250, 400, 100, 30);
+        southButton.setOpaque(true);
+        saveButton.setBounds(450, 500, 100, 30);
+        saveButton.setOpaque(true);
+
+        moveOrSaveLabel.setVisible(false);
+        northButton.setVisible(false);
+        westButton.setVisible(false);
+        eastButton.setVisible(false);
+        southButton.setVisible(false);
+        saveButton.setVisible(false);
+
+        frame.add(moveOrSaveLabel);
+        frame.add(northButton);
+        frame.add(westButton);
+        frame.add(eastButton);
+        frame.add(southButton);
+        frame.add(saveButton);
+
+
+        // fight or flight
+
+        // player stats
+
+        // game over
+
+        // game won
 
         frame.setSize(600, 600);
         frame.setLayout(null);
@@ -181,35 +265,5 @@ public class GUIView {
         frame.setVisible(true);
         frame.setResizable(false);
 
-        validateCreateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String hero = "";
-                String playerClass = "";
-                if (warriorButton.isSelected()) {
-                    playerClass = "warrior";
-                } else if (paladinButton.isSelected()) {
-                    playerClass = "paladin";
-                }
-
-                hero = nameField.getText();
-                hero = hero.trim();
-
-                if (hero.length() ==  0) {
-                    JOptionPane.showMessageDialog(null, "Blanks are not allowed.");
-                    return ;
-                }
-                String[] strList = hero.split("\\s");
-
-                if (strList != null) {
-                    hero = String.join("_", strList);
-                }
-                // player = GUIController.CreatePlayer(hero, playerClass);
-            }
-        });
-
-        selectPlayerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
     }
 }
