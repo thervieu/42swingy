@@ -7,6 +7,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayer;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JOptionPane;
@@ -40,11 +41,16 @@ public class GUIView {
 
 
     private JLabel moveOrSaveLabel = new JLabel("Move player or save progress");
+    private JLabel positionLabel = new JLabel("Position");
     private JButton northButton = new JButton("North");
     private JButton westButton = new JButton("West");
     private JButton eastButton = new JButton("East");
     private JButton southButton = new JButton("South");
-    private JButton saveButton = new JButton("Save");
+    private JButton saveButton = new JButton("Save and quit");
+
+    private JLabel encounterLabel = new JLabel("Encounter");
+    private JButton fightButton = new JButton("Fight");
+    private JButton flightButton = new JButton("Flight");
 
 
     public void setFrame(JFrame frame) {
@@ -124,6 +130,12 @@ public class GUIView {
     public JLabel getMoveorSaveLabel() {
         return this.moveOrSaveLabel;
     }
+    public void setPositionLabel(JLabel positionLabel) {
+        this.positionLabel = positionLabel;
+    }
+    public JLabel getPositionLabel() {
+        return this.positionLabel;
+    }
 
     public void setNorthButton(JButton northButton) {
         this.northButton = northButton;
@@ -158,6 +170,17 @@ public class GUIView {
 
 
     // fight or flight methods
+    public JLabel getEncounterLabel() {
+        return this.encounterLabel;
+    }
+    public JButton getFightButton() {
+        return this.fightButton;
+    }
+    public JButton getFlightButton() {
+        return this.flightButton;
+    }
+
+
 
     private JLabel selectPlayerLabel = new JLabel("Select player");
     private JButton validateSelectButton = new JButton("Validate");
@@ -229,14 +252,17 @@ public class GUIView {
         northButton.setOpaque(true);
         westButton.setBounds(110, 300, 100, 30);
         westButton.setOpaque(true);
+        positionLabel.setBounds(283, 300, 100, 30);
+        positionLabel.setOpaque(true);
         eastButton.setBounds(390, 300, 100, 30);
         eastButton.setOpaque(true);
         southButton.setBounds(250, 400, 100, 30);
         southButton.setOpaque(true);
-        saveButton.setBounds(450, 500, 100, 30);
+        saveButton.setBounds(420, 500, 140, 30);
         saveButton.setOpaque(true);
 
         moveOrSaveLabel.setVisible(false);
+        positionLabel.setVisible(false);
         northButton.setVisible(false);
         westButton.setVisible(false);
         eastButton.setVisible(false);
@@ -244,14 +270,28 @@ public class GUIView {
         saveButton.setVisible(false);
 
         frame.add(moveOrSaveLabel);
+        frame.add(positionLabel);
         frame.add(northButton);
         frame.add(westButton);
         frame.add(eastButton);
         frame.add(southButton);
         frame.add(saveButton);
 
-
         // fight or flight
+        encounterLabel.setBounds(180, 150, 250, 30);
+        encounterLabel.setOpaque(true);
+        fightButton.setBounds(150, 300, 100, 30);
+        fightButton.setOpaque(true);
+        flightButton.setBounds(350, 300, 100, 30);
+        flightButton.setOpaque(true);
+
+        encounterLabel.setVisible(false);
+        fightButton.setVisible(false);
+        flightButton.setVisible(false);
+
+        frame.add(encounterLabel);
+        frame.add(fightButton);
+        frame.add(flightButton);
 
         // player stats
 

@@ -122,7 +122,31 @@ public class GUIController {
             }
         }
     }
+
+    public void fightOrFlight() {
+        int levelEnemy = player.getLevel() + (int)Math.floor(Math.random() * 3) + 1;
+
+        guiView.getPositionLabel().setText("(" + Integer.toString(player.getX()) + "," + Integer.toString(player.getY()) + ")");
+        if (Math.random() < 0.6) {
+            guiView.getPositionLabel().setVisible(false);
+            guiView.getMoveorSaveLabel().setVisible(false);
+            guiView.getNorthButton().setVisible(false);
+            guiView.getWestButton().setVisible(false);
+            guiView.getEastButton().setVisible(false);
+            guiView.getSouthButton().setVisible(false);
+            guiView.getSaveButton().setVisible(false);
+
+            guiView.getEncounterLabel().setText("You encounter a zombie of level " + Integer.toString(levelEnemy));
+            guiView.getEncounterLabel().setVisible(true);
+            guiView.getFightButton().setVisible(true);
+            guiView.getFlightButton().setVisible(true);
+            
+        }
+
+        return ;
+    }
     
+    public int levelEnemy = 0;
     public void Init() {
 
         this.guiView.getCreatePlayerButton().addActionListener(new ActionListener() {
@@ -187,12 +211,67 @@ public class GUIController {
                 guiView.getPaladinButton().setVisible(false);
                 guiView.getValidateCreateButton().setVisible(false);
 
+                guiView.getPositionLabel().setText("(" + Integer.toString(player.getX()) + "," + Integer.toString(player.getY()) + ")");
+                guiView.getPositionLabel().setVisible(true);
                 guiView.getMoveorSaveLabel().setVisible(true);
                 guiView.getNorthButton().setVisible(true);
                 guiView.getWestButton().setVisible(true);
                 guiView.getEastButton().setVisible(true);
                 guiView.getSouthButton().setVisible(true);
                 guiView.getSaveButton().setVisible(true);
+            }
+        });
+
+        guiView.getNorthButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                player.setY(player.getY() + 1);
+                fightOrFlight();
+            }
+        });
+        guiView.getSouthButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                player.setY(player.getY() - 1);
+                fightOrFlight();
+            }
+        });
+        guiView.getWestButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                player.setX(player.getX() - 1);
+                fightOrFlight();
+            }
+        });
+        guiView.getEastButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                player.setX(player.getX() + 1);
+                fightOrFlight();
+            }
+        });
+
+
+        guiView.getFightButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // fight();
+            }
+        });
+
+        guiView.getFlightButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (Math.random() < 0.5) {
+                    // fight();
+                    return;
+                }
+                guiView.getEncounterLabel().setVisible(false);
+                guiView.getFightButton().setVisible(false);
+                guiView.getFlightButton().setVisible(false);
+
+                guiView.getPositionLabel().setVisible(true);
+                guiView.getMoveorSaveLabel().setVisible(true);
+                guiView.getNorthButton().setVisible(true);
+                guiView.getWestButton().setVisible(true);
+                guiView.getEastButton().setVisible(true);
+                guiView.getSouthButton().setVisible(true);
+                guiView.getSaveButton().setVisible(true);
+
             }
         });
 

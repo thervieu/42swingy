@@ -60,7 +60,7 @@ public class ConsoleController {
             System.out.println("[Encounter] Do you wish to fight it ?");
 
             String choice = "";
-            Scanner sc=new Scanner(System.in);
+            Scanner sc = new Scanner(System.in);
             while (sc.hasNextLine()) {
                 choice = sc.nextLine();
                 if (choice.equals("fight") || choice.equals("flight")) {
