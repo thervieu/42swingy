@@ -6,16 +6,16 @@ import com.thervieu.swingy.Models.Player;
 public class Create {
     public static String CreateOrDB() {
         System.out.println("[Start] Welcome to swingy, a text-based RPG.");
-        System.out.println("[Start] To start off you can create a new player or choose one from a previous adventure.");
+        System.out.println("[Start] To start off you can create a new player or continue the previous adventure.");
         
         String choice = "";
         Scanner sc=new Scanner(System.in);
         while (sc.hasNextLine()) {
             choice = sc.nextLine();
-            if (choice.equals("create") || choice.equals("choose")) {
+            if (choice.equals("create") || choice.equals("continue")) {
                 break;
             }
-            System.out.println("[Start] Either input create or choose.");
+            System.out.println("[Start] Either input create or continue.");
         }
         return choice;
     }
@@ -69,6 +69,13 @@ public class Create {
             return new Player(name, name2, 7, 8, 40);
         }
         return null;
+    }
+
+    public static Player CreateFromArray(String[] arr) {
+        return new Player(arr[0], arr[1], Integer.parseInt(arr[2]),
+            Integer.parseInt(arr[3]), Integer.parseInt(arr[4]),
+            Integer.parseInt(arr[5]), Integer.parseInt(arr[6]),
+            arr[7], Integer.parseInt(arr[8]), Integer.parseInt(arr[9]), Integer.parseInt(arr[10]));
     }
 
 }

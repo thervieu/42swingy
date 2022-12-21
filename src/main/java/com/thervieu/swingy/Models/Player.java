@@ -16,6 +16,21 @@ public class Player {
     private int x;
     private int y;
 
+    public Player(String n, String c, int l, int e, int a,
+        int d, int h, String art, int m, int x, int y) {
+        this.name = n;
+        this.class1 = c;
+        this.level = l;
+        this.exp = e;
+        this.attack = a;
+        this.defense = d;
+        this.hitPoints = h;
+        this.artifact = art;
+        this.mapSize = m;
+        this.x = x;
+        this.y = y;
+    }
+
     public Player(String name, String class1, int attack, int defense, int hitPoints) {
         this.name = name;
         this.class1 = class1;
@@ -31,17 +46,16 @@ public class Player {
     }
 
     public void Print() {
-        System.out.printf("name: %s\n", this.name);
-        System.out.printf("class: %s\n", this.class1);
-        System.out.printf("level: %d\n", this.level);
-        System.out.printf("exp: %d\n", this.exp);
-        System.out.printf("attack: %d\n", this.attack);
-        System.out.printf("defense: %d\n", this.defense);
-        System.out.printf("hitPoints: %d\n", this.hitPoints);
-        System.out.printf("artifact: %s\n", this.artifact);
-        System.out.printf("mapSize: %d\n", this.mapSize);
-        System.out.printf("x: %d\n", this.x);
-        System.out.printf("y: %d\n", this.y);
+        System.out.printf("[Stats] name: %s\n", this.name);
+        System.out.printf("[Stats] class: %s\n", this.class1);
+        System.out.printf("[Stats] level: %d\n", this.level);
+        System.out.printf("[Stats] exp: %d\n", this.exp);
+        System.out.printf("[Stats] attack: %d\n", this.attack);
+        System.out.printf("[Stats] defense: %d\n", this.defense);
+        System.out.printf("[Stats] hitPoints: %d\n", this.hitPoints);
+        System.out.printf("[Stats] artifact: %s\n", this.artifact);
+        System.out.printf("[Stats] x: %d\n", this.x);
+        System.out.printf("[Stats] y: %d\n", this.y);
     }
 
     public void Move(String direction) {

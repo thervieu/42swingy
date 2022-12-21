@@ -1,35 +1,18 @@
 package com.thervieu.swingy.Views.GUI;
 
-import com.thervieu.swingy.Models.Player;
-import com.thervieu.swingy.Controllers.GUI.GUIController;
-
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayer;
-import javax.swing.JList;
 import javax.swing.JRadioButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileReader;
-
-import com.thervieu.swingy.Utils.Reader;
 
 public class GUIView {
-    private String[] playersStrings = Reader.getLines();
-    private JList listOfPlayers = new JList<>(playersStrings);
-
     private JFrame frame = new JFrame("Swingy");
-    private JFrame createPlayerFrame = new JFrame("Create player");
 
     private JButton createPlayerButton = new JButton("Create player");
-    private JButton selectPlayerButton = new JButton("Select player");
+    private JButton selectPlayerButton = new JButton("Continue with saved player");
 
     private JLabel createPlayerLabel = new JLabel("Create player");
     private JLabel enterNameLabel = new JLabel("Name your player");
@@ -56,6 +39,8 @@ public class GUIView {
     private JButton flightButton = new JButton("Flight");
 
     private JLabel gameOverLabel = new JLabel("gameOver");
+
+    private JLabel winLabel = new JLabel("You won!");
 
     
     public JFrame getFrame() {
@@ -143,14 +128,15 @@ public class GUIView {
         return this.flightButton;
     }
 
+    // game over
     public JLabel getGameOverLabel() {
         return this.gameOverLabel;
     }
 
-
-
-    private JLabel selectPlayerLabel = new JLabel("Select player");
-    private JButton validateSelectButton = new JButton("Validate");
+    // win
+    public JLabel getWinLabel() {
+        return this.winLabel;
+    }
 
 
     public GUIView() {
@@ -158,7 +144,7 @@ public class GUIView {
         createPlayerButton.setBounds(225, 100, 150, 25);
         createPlayerButton.setOpaque(true);
 
-        selectPlayerButton.setBounds(225, 200, 150, 25);
+        selectPlayerButton.setBounds(180, 200, 240, 25);
         selectPlayerButton.setOpaque(true);
 
         frame.add(createPlayerButton);
@@ -210,8 +196,6 @@ public class GUIView {
         frame.add(paladinButton);
         frame.add(validateCreateButton);
         
-        // select player
-    
         // choose map
         moveOrSaveLabel.setBounds(190, 100, 240, 30);
         moveOrSaveLabel.setOpaque(true);
@@ -279,7 +263,7 @@ public class GUIView {
         // player stats
 
         // game over
-        gameOverLabel.setBounds(280, 300, 120, 30);
+        gameOverLabel.setBounds(280, 300, 200, 30);
         gameOverLabel.setOpaque(true);
 
         gameOverLabel.setVisible(false);
@@ -287,6 +271,12 @@ public class GUIView {
         frame.add(gameOverLabel);
 
         // game won
+        winLabel.setBounds(260, 300, 120, 30);
+        winLabel.setOpaque(true);
+
+        winLabel.setVisible(false);
+
+        frame.add(winLabel);
 
         frame.setSize(600, 600);
         frame.setLayout(null);

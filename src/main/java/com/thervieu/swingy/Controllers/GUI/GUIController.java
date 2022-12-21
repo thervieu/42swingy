@@ -3,10 +3,14 @@ package com.thervieu.swingy.Controllers.GUI;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 import com.thervieu.swingy.Models.Player;
 import com.thervieu.swingy.Views.GUI.GUIView;
-import javax.swing.JOptionPane;
+import com.thervieu.swingy.Controllers.Console.Create;
+
+import com.thervieu.swingy.Utils.Reader;
+import com.thervieu.swingy.Utils.Writer;
 
 public class GUIController {
     private GUIView guiView;
@@ -44,6 +48,7 @@ public class GUIController {
             System.out.println("[Direction] Either input north, west, east or south.");
             System.out.println("[Direction] You can also save and quit by inputing save.");
         }
+        sc.close();
         return choice;
     }
     
@@ -70,6 +75,7 @@ public class GUIController {
                 }
                 System.out.println("[Direction] Either input fight or flight.");
             }
+            sc.close();
             if (choice.equals("flight") && Math.random() < 0.5) {
                 return 0;
             }
@@ -172,9 +178,15 @@ public class GUIController {
         if (drop < 0.1 && player.getArtifact().equals("ARMOR")) {
             player.setArtifact("HELM");
         }
-        if (player.getExp() > (player.getLevel() * 1450) - 450) {
+        
+        int expForLevel = (player.getLevel() * 1000) + ((int)(Math.pow(player.getLevel() - 1, 2.0) * 450));
+        if (player.getExp() > expForLevel) {
             player.setLevel(player.getLevel() + 1);
-            player.setExp(0);
+            if (player.getLevel() == 6) {
+                guiView.getWinLabel().setVisible(true);
+                return;
+            }
+            player.setExp(player.getExp() - expForLevel);
             player.setHitPoints(player.getHitPoints() + 5);
             if (player.getClass1().equals("warrior")) {
                 player.setAttack(player.getAttack() + 3);
@@ -192,6 +204,7 @@ public class GUIController {
         guiView.getEastButton().setVisible(true);
         guiView.getSouthButton().setVisible(true);
         guiView.getStatsButton().setVisible(true);
+        guiView.getSaveButton().setVisible(true);
     }
 
     public void fightOrFlight() {
@@ -214,7 +227,6 @@ public class GUIController {
             guiView.getFlightButton().setVisible(true);
             
         }
-
         return ;
     }
     
@@ -232,19 +244,26 @@ public class GUIController {
                 guiView.getWarriorButton().setVisible(true);
                 guiView.getPaladinButton().setVisible(true);
                 guiView.getValidateCreateButton().setVisible(true);
-                // 
-                // createHeroGUI();
-                // frame.dispose();
             }
         });
 
         this.guiView.getSelectPlayerButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // 
                 guiView.getCreatePlayerButton().setVisible(false);
                 guiView.getSelectPlayerButton().setVisible(false);
-                // selectHeroGUI();
-                // frame.dispose();
+
+                
+                player = Create.CreateFromArray(Reader.getLine().split(" "));
+
+                guiView.getPositionLabel().setText("(" + Integer.toString(player.getX()) + "," + Integer.toString(player.getY()) + ")");
+                guiView.getPositionLabel().setVisible(true);
+                guiView.getMoveorSaveLabel().setVisible(true);
+                guiView.getNorthButton().setVisible(true);
+                guiView.getWestButton().setVisible(true);
+                guiView.getEastButton().setVisible(true);
+                guiView.getSouthButton().setVisible(true);
+                guiView.getStatsButton().setVisible(true);
+                guiView.getSaveButton().setVisible(true);
             }
         });
 
@@ -316,6 +335,26 @@ public class GUIController {
             public void actionPerformed(ActionEvent e) {
                 player.setX(player.getX() + 1);
                 fightOrFlight();
+            }
+        });
+        guiView.getSaveButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {guiView.getPositionLabel().setVisible(true);
+                guiView.getPositionLabel().setVisible(false);
+                guiView.getMoveorSaveLabel().setVisible(false);
+                guiView.getNorthButton().setVisible(false);
+                guiView.getWestButton().setVisible(false);
+                guiView.getEastButton().setVisible(false);
+                guiView.getSouthButton().setVisible(false);
+                guiView.getStatsButton().setVisible(false);
+                guiView.getSaveButton().setVisible(false);
+
+                Writer.write(String.format("%s %s %d %d %d %d %d %s %d %d %d",
+                player.getName(), player.getClass1(), player.getLevel(),
+                player.getExp(), player.getAttack(), player.getDefense(),
+                player.getHitPoints(), player.getArtifact(), player.getMapSize(),
+                player.getX(), player.getY()));
+                guiView.getGameOverLabel().setText("Player saved!");
+                guiView.getGameOverLabel().setVisible(true);;
             }
         });
 
@@ -394,66 +433,6 @@ public class GUIController {
             }
         });
 
-        // Player player = playerCreation();
-        // player.Print();
-        
-        // while (true) {
-        //     if (winMap(player) == true) {
-        //         if (player.getLevel() == 6) {
-        //             break;
-        //         }
-        //         System.out.println("HERE");
-        //         player.setMapSize(((player.getLevel() - 1) * 5) + 9);
-        //         player.setX(0);
-        //         player.setY(0);
-        //         continue;
-        //     }
-        //     System.out.printf("[Direction] You are currently on (%d,%d)\n", player.getX(), player.getY());
-        //     String choice = ChooseDirection();
-
-        //     if (choice.equals("save")) {
-        //         saveAndQuit(player);
-        //         break;
-        //     }
-
-        //     player.Move(choice);
-            
-        //     int enemy = FightOrFlight(player.getLevel());
-        //     if (enemy > 0) {
-        //         if (fight(player, enemy)) {
-        //             player.setExp(player.getExp() + (player.getLevel() * (enemy - player.getLevel()) * 300));
-
-        //             double drop = Math.random();
-        //             if (drop < 0.45 && player.getArtifact().equals("")) {
-        //                 player.setArtifact("WEAPON");
-        //             }
-        //             if (drop < 0.25 && player.getArtifact().equals("WEAPON")) {
-        //                 player.setArtifact("ARMOR");
-        //             }
-        //             if (drop < 0.1 && player.getArtifact().equals("ARMOR")) {
-        //                 player.setArtifact("HELM");
-        //             }
-        //             if (player.getExp() > (player.getLevel() * 1450) - 450) {
-        //                 player.setLevel(player.getLevel() + 1);
-        //                 player.setExp(0);
-        //                 if (player.getClass1().equals("warrior")) {
-        //                     player.setAttack(player.getAttack() + 3);
-        //                     player.setDefense(player.getDefense() + 2);
-        //                 } else if (player.getClass1().equals("paladin")) {
-        //                     player.setAttack(player.getAttack() + 1);
-        //                     player.setDefense(player.getDefense() + 3);
-        //                 }
-        //             }
-        //             player.Print();
-        //         } else {
-        //             System.out.printf("[Death] Hero %s was slain.\n", player.getName());
-        //             return ;
-        //         }
-        //     }
-        // }
-        // System.out.printf("[Victory] Hero %s has slayed all the enemies.\n", player.getName());
-        // System.out.println("Here are the hero's stats:");
-        // player.Print();
         return ;
     }
 }

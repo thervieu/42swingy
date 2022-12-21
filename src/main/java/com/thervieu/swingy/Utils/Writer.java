@@ -11,9 +11,8 @@ public class Writer {
     public static void write(String playerLine) {
         try {
             File f = new File("players.txt");
-            FileWriter fileWriter = new FileWriter(f, true);
-            fileWriter.append(playerLine);
-            fileWriter.append("\n");
+            FileWriter fileWriter = new FileWriter(f, false);
+            fileWriter.write(playerLine);
             fileWriter.close();
             System.out.printf("Wrote \"%s\" to players.txt\n", playerLine);
         } catch (IOException e) {
