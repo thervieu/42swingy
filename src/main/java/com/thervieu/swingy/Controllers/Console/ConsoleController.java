@@ -1,26 +1,37 @@
 package com.thervieu.swingy.Controllers.Console;
 
-import java.util.Scanner;
-
 import com.thervieu.swingy.Models.Player;
 import com.thervieu.swingy.Utils.Reader;
 import com.thervieu.swingy.Utils.Writer;
 
-public class ConsoleController {
-    public static Player playerCreation() {
+import com.thervieu.swingy.Views.Console.ConsoleView;
 
-        String choice = Create.CreateOrDB();
-        String[] playerArray = Reader.getLine().split(" ");
-        if (choice.equals("continue") && playerArray.length == 11) {
-            return Create.CreateFromArray(playerArray);
-        } else if (choice.equals("create")) {
-            String name = Create.Name();
-            return Create.CreatePlayer(name, Create.Class());
-        }
-        return Create.CreatePlayer("default", "warrior");
+public class ConsoleController {
+    private ConsoleView view;
+    private Player player;
+
+    public int levelEnemy = 0;
+
+    public ConsoleController(Player player, ConsoleView view) {
+        this.player = player;
+        this.view = view;
     }
 
-    public static Boolean winMap(Player player) {
+    public void playerCreation() {
+
+        String choice = this.view.CreateOrDB();
+        String[] playerArray = Reader.getLine().split(" ");
+        System.out.printf("choice = |%s|\n", choice);
+        System.out.printf("length = %d\n", playerArray.length);
+        if (choice.equals("create")) {
+            String name = this.view.Name();
+            this.player = this.view.CreatePlayer(name, this.view.Class());
+            return ;
+        }
+        this.player =  Reader.CreateFromArray(playerArray);
+    }
+
+    public Boolean winMap() {
         int x = player.getX();
         int y = player.getY();
         int goal = player.getMapSize() / 2;
@@ -30,30 +41,9 @@ public class ConsoleController {
             return true;
         return false;
     }
-
-    public static String ChooseDirection() {
-        System.out.println("[Direction] Choose you next destination");
-        System.out.println("[Action] Input north, west, east or south.");
-        System.out.println("[Action] You can print your player' stats by inputing stats.");
-        System.out.println("[Action] You can also save and quit by inputing save.");
-        
-        String choice = "";
-        Scanner sc=new Scanner(System.in);
-        while (sc.hasNextLine()) {
-            choice = sc.nextLine();
-            if (choice.equals("north") || choice.equals("west") || choice.equals("east")
-                || choice.equals("south") || choice.equals("save") || choice.equals("stats")) {
-                break;
-            }
-            System.out.println("[Action] Input north, west, east or south.");
-            System.out.println("[Action] You can print your player' stats by inputing stats.");
-            System.out.println("[Action] You can also save and quit by inputing save.");
-        }
-        return choice;
-    }
     
 
-    public static void saveAndQuit(Player player) {
+    public void saveAndQuit() {
         Writer.write(String.format("%s %s %d %d %d %d %d %s %d %d %d",
             player.getName(), player.getClass1(), player.getLevel(),
             player.getExp(), player.getAttack(), player.getDefense(),
@@ -62,34 +52,8 @@ public class ConsoleController {
         return;
     }
 
-    public static int FightOrFlight(int level) {
-        double rand = Math.random();
-        
-        if (rand < 0.6) {
-        
-            int levelEnemy = level + (int)Math.floor(Math.random() * 3) + 1;
 
-            System.out.printf("[Encounter] In front of you there is a zombie level %d\n", levelEnemy);
-            System.out.println("[Encounter] Do you wish to fight it ?");
-
-            String choice = "";
-            Scanner sc = new Scanner(System.in);
-            while (sc.hasNextLine()) {
-                choice = sc.nextLine();
-                if (choice.equals("fight") || choice.equals("flight")) {
-                    break;
-                }
-                System.out.println("[Direction] Either input fight or flight.");
-            }
-            if (choice.equals("flight") && Math.random() < 0.5) {
-                return 0;
-            }
-            return levelEnemy;
-        }
-        return 0;
-    }
-
-    public static Boolean fight(Player player, int enemylvl) {
+    public Boolean fight(int enemylvl) {
         int power = (player.getAttack() + player.getDefense()) / 2;
 
         double randPower = Math.random();
@@ -126,11 +90,10 @@ public class ConsoleController {
     }
     
     public void Game() {
-        Player player = playerCreation();
-        player.Print();
+        playerCreation();
         
         while (true) {
-            if (winMap(player) == true) {
+            if (winMap() == true) {
                 if (player.getLevel() == 6) {
                     break;
                 }
@@ -141,10 +104,10 @@ public class ConsoleController {
                 continue;
             }
             System.out.printf("[Coordinates] You are currently on (%d,%d)\n", player.getX(), player.getY());
-            String choice = ChooseDirection();
+            String choice = this.view.ChooseDirection();
 
             if (choice.equals("save")) {
-                saveAndQuit(player);
+                saveAndQuit();
                 break;
             }
             if (choice.equals("stats")) {
@@ -154,9 +117,9 @@ public class ConsoleController {
 
             player.Move(choice);
             
-            int enemy = FightOrFlight(player.getLevel());
+            int enemy = this.view.FightOrFlight(player.getLevel());
             if (enemy > 0) {
-                if (fight(player, enemy)) {
+                if (fight(enemy)) {
                     player.setExp(player.getExp() + (player.getLevel() * (enemy - player.getLevel()) * 300));
 
                     double drop = Math.random();

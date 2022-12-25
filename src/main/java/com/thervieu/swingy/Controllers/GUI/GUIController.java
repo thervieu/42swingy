@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 
 import com.thervieu.swingy.Models.Player;
 import com.thervieu.swingy.Views.GUI.GUIView;
-import com.thervieu.swingy.Controllers.Console.Create;
 
 import com.thervieu.swingy.Utils.Reader;
 import com.thervieu.swingy.Utils.Writer;
@@ -23,7 +22,7 @@ public class GUIController {
         this.guiView = guiView;
     }
 
-    public static Boolean winMap(Player player) {
+    public Boolean winMap(Player player) {
         int x = player.getX();
         int y = player.getY();
         int goal = player.getMapSize() / 2;
@@ -34,7 +33,7 @@ public class GUIController {
         return false;
     }
 
-    public static String ChooseDirection() {
+    public String ChooseDirection() {
         System.out.println("[Direction] Choose you next destination");
         
         String choice = "";
@@ -51,13 +50,9 @@ public class GUIController {
         sc.close();
         return choice;
     }
-    
 
-    public static void saveAndQuit(Player player) {
-        return;
-    }
 
-    public static int FightOrFlight(int level) {
+    public int FightOrFlight(int level) {
         double rand = Math.random();
         
         if (rand < 0.6) {
@@ -253,7 +248,7 @@ public class GUIController {
                 guiView.getSelectPlayerButton().setVisible(false);
 
                 
-                player = Create.CreateFromArray(Reader.getLine().split(" "));
+                player = Reader.CreateFromArray(Reader.getLine().split(" "));
 
                 guiView.getPositionLabel().setText("(" + Integer.toString(player.getX()) + "," + Integer.toString(player.getY()) + ")");
                 guiView.getPositionLabel().setVisible(true);
