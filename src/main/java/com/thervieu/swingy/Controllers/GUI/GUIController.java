@@ -52,33 +52,6 @@ public class GUIController {
     }
 
 
-    public int FightOrFlight(int level) {
-        double rand = Math.random();
-        
-        if (rand < 0.6) {
-            int lvlEnemy = level + (int)Math.floor(Math.random() * 3) + 1;
-
-            System.out.printf("[Encounter] In front of you there is a zombie level %d\n", lvlEnemy);
-            System.out.println("[Encounter] Do you wish to fight it ?");
-
-            String choice = "";
-            Scanner sc=new Scanner(System.in);
-            while (sc.hasNextLine()) {
-                choice = sc.nextLine();
-                if (choice.equals("fight") || choice.equals("flight")) {
-                    break;
-                }
-                System.out.println("[Direction] Either input fight or flight.");
-            }
-            sc.close();
-            if (choice.equals("flight") && Math.random() < 0.5) {
-                return 0;
-            }
-            return lvlEnemy;
-        }
-        return 0;
-    }
-
     public static Player CreatePlayer(String name, String name2) {
         if (name2.equals("warrior")) {
             return new Player(name, name2, 10, 5, 40);
@@ -88,45 +61,8 @@ public class GUIController {
         return null;
     }
 
-    public static Boolean fight(Player player, int enemylvl) {
-        int power = (player.getAttack() + player.getDefense()) / 2;
-
-        double randPower = Math.random();
-        double randPlus = Math.random();
-
-        int enemyAttack = (int)(randPower * power) + (int)(randPlus * (enemylvl - player.getLevel()));
-        int enemyDefense = (int)((1 - randPower) * power) + (int)((1 - randPlus) * (enemylvl - player.getLevel()));
-        System.out.printf("enemy %d %d %d\n", enemyAttack, enemyDefense, player.getHitPoints() * 3 / 4);
-
-        int playerAttack = player.getAttack();
-        int playerDefense = player.getDefense();
-        int playerHitPoints = player.getHitPoints();
-        if (player.getArtifact().equals("WEAPON")) {
-            playerAttack += 5;
-        }
-        if (player.getArtifact().equals("ARMOR")) {
-            playerDefense += 8;
-        }
-        if (player.getArtifact().equals("WEAPON")) {
-            playerHitPoints += 20;
-        }
-
-        int damagePlayer = 0;
-        int damageEnemy = 0;
-        while (true) {
-            damageEnemy += playerAttack- enemyDefense;
-            damagePlayer +=  enemyAttack - playerDefense;
-            if (damagePlayer > playerHitPoints) {
-                return false;
-            }
-            if (damageEnemy > (player.getHitPoints() * 3) / 4) {
-                return true;
-            }
-        }
-    }
-
     public void fight() {
-        int power = (player.getAttack() + player.getDefense()) / 2;
+        int power = (player.getAttack() + player.getDefense()) / 4;
 
         double randPower = Math.random();
         double randPlus = Math.random();
@@ -144,17 +80,21 @@ public class GUIController {
         if (player.getArtifact().equals("ARMOR")) {
             playerDefense += 8;
         }
-        if (player.getArtifact().equals("WEAPON")) {
+        if (player.getArtifact().equals("HELM")) {
             playerHitPoints += 20;
         }
 
         int damagePlayer = 0;
         int damageEnemy = 0;
+        System.out.printf("%d %d %d\n", playerAttack, playerDefense, playerHitPoints);
+        System.out.printf("%d %d %d\n", enemyAttack, playerDefense, enemyHitPoints);
         while (true) {
-            damageEnemy += playerAttack- enemyDefense;
             damagePlayer +=  enemyAttack - playerDefense;
+            damageEnemy += playerAttack- enemyDefense;
             if (damagePlayer > playerHitPoints) {
+                guiView.getGameOverLabel().setText("Game over!");
                 guiView.getGameOverLabel().setVisible(true);
+                return ;
             }
             if (damageEnemy > enemyHitPoints) {
                 break ;
@@ -349,7 +289,7 @@ public class GUIController {
                 player.getHitPoints(), player.getArtifact(), player.getMapSize(),
                 player.getX(), player.getY()));
                 guiView.getGameOverLabel().setText("Player saved!");
-                guiView.getGameOverLabel().setVisible(true);;
+                guiView.getGameOverLabel().setVisible(true);
             }
         });
 

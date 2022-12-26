@@ -121,7 +121,7 @@ public class ConsoleController {
                     player.setExp(player.getExp() + (player.getLevel() * (enemy - player.getLevel()) * 300));
 
                     double drop = Math.random();
-                    if (drop < 0.45 && player.getArtifact().equals("")) {
+                    if (drop < 0.45 && player.getArtifact().equals("none")) {
                         player.setArtifact("WEAPON");
                     }
                     if (drop < 0.25 && player.getArtifact().equals("WEAPON")) {
