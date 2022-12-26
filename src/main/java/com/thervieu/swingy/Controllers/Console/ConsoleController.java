@@ -21,8 +21,6 @@ public class ConsoleController {
 
         String choice = this.view.CreateOrDB();
         String[] playerArray = Reader.getLine().split(" ");
-        System.out.printf("choice = |%s|\n", choice);
-        System.out.printf("length = %d\n", playerArray.length);
         if (choice.equals("create")) {
             String name = this.view.Name();
             this.player = this.view.CreatePlayer(name, this.view.Class());
